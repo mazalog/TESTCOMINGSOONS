@@ -3,6 +3,7 @@ import React, { Suspense, useEffect, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Reflector, Text, useTexture, useGLTF } from '@react-three/drei'
 import Overlay from './Overlay'
+import './styles.css'
 
 function Carla(props) {
   const { scene } = useGLTF('/carla-draco.glb')
@@ -10,18 +11,34 @@ function Carla(props) {
 }
 
 function VideoText({ clicked, ...props }) {
-  const [video] = useState(() => Object.assign(document.createElement('video'), { src: '/drei.mp4', crossOrigin: 'Anonymous', loop: true }))
+  const [video] = useState(() => Object.assign(document.createElement('video'), { src: 'https://ak.picdn.net/shutterstock/videos/1031108996/preview/stock-footage-gold-confetti-floating-in-the-air-during-a-concert.webm', crossOrigin: 'Anonymous', loop: true }))
   useEffect(() => void (clicked && video.play()), [video, clicked])
   return (
-    <Text font="/Inter-Bold.woff" fontSize={1.5} letterSpacing={-0.06} {...props}>
+    <Text font="/Inter-Bold.woff" fontSize={1} letterSpacing={-0.06} {...props}>
       LIVE VIP
       <meshBasicMaterial toneMapped={false}>
         <videoTexture attach="map" args={[video]} encoding={THREE.sRGBEncoding} />
       </meshBasicMaterial>
-      20
+
     </Text>
   )
 }
+
+function VideoText2({ clicked, ...props }) {
+  const [video] = useState(() => Object.assign(document.createElement('video'), { src: 'https://ak.picdn.net/shutterstock/videos/1031108996/preview/stock-footage-gold-confetti-floating-in-the-air-during-a-concert.webm', crossOrigin: 'Anonymous', loop: true }))
+  useEffect(() => void (clicked && video.play()), [video, clicked])
+  return (
+    <Text font="/Inter-Bold.woff" fontSize={0.5} letterSpacing={-0.06} {...props}>
+      CONNECT THE EMOTIÓN
+      <meshBasicMaterial toneMapped={false}>
+        <videoTexture attach="map" args={[video]} encoding={THREE.sRGBEncoding} />
+      </meshBasicMaterial>
+
+    </Text>
+  )
+}
+
+
 
 function Ground() {
   const [floor, normal] = useTexture(['/SurfaceImperfections003_1K_var1.jpg', '/SurfaceImperfections003_1K_Normal.jpg'])
@@ -32,7 +49,7 @@ function Ground() {
   )
 }
 
-export default function App() {
+export default function BgCool() {
   const [clicked, setClicked] = useState(false)
   const [ready, setReady] = useState(false)
   const store = { clicked, setClicked, ready, setReady }
@@ -43,8 +60,10 @@ export default function App() {
         <fog attach="fog" args={['black', 15, 20]} />
         <Suspense fallback={null}>
           <group position={[0, -1, 0]}>
-            <Carla rotation={[0, Math.PI - 0.4, 0]} position={[-1.2, 0, 0.6]} scale={[0.26, 0.26, 0.26]} />
-            <VideoText {...store} position={[0, 1.3, -2]} />
+            {/* <Carla rotation={[0, Math.PI - 0.4, 0]} position={[-1.2, 0, 0.6]} scale={[0.26, 0.26, 0.26]} /> */}
+            <VideoText {...store} position={[0, 1.5, -2]} />
+            <VideoText2 {...store} position={[0, 0.4, -2]} />
+
             <Ground />
           </group>
           <ambientLight intensity={0.5} />
@@ -53,7 +72,6 @@ export default function App() {
           <Intro start={ready && clicked} set={setReady} />
         </Suspense>
       </Canvas>
-      <h1>Hola </h1>
       <Overlay {...store} />
     </>
   )
