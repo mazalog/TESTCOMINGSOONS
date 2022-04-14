@@ -14,7 +14,7 @@ function VideoText({ clicked, ...props }) {
   const [video] = useState(() => Object.assign(document.createElement('video'), { src: 'https://ak.picdn.net/shutterstock/videos/1031108996/preview/stock-footage-gold-confetti-floating-in-the-air-during-a-concert.webm', crossOrigin: 'Anonymous', loop: true }))
   useEffect(() => void (clicked && video.play()), [video, clicked])
   return (
-    <Text font="/Inter-Bold.woff" fontSize={window.screen.width<768px?0.5:1} letterSpacing={-0.06} {...props}>
+    <Text font="/Inter-Bold.woff" fontSize={`${window.screen.width<768?0.5:1}`} letterSpacing={-0.06} {...props}>
       LIVE VIP
       <meshBasicMaterial toneMapped={false}>
         <videoTexture attach="map" args={[video]} encoding={THREE.sRGBEncoding} />
@@ -28,7 +28,7 @@ function VideoText2({ clicked, ...props }) {
   const [video] = useState(() => Object.assign(document.createElement('video'), { src: 'https://ak.picdn.net/shutterstock/videos/1031108996/preview/stock-footage-gold-confetti-floating-in-the-air-during-a-concert.webm', crossOrigin: 'Anonymous', loop: true }))
   useEffect(() => void (clicked && video.play()), [video, clicked])
   return (
-    <Text font="/Inter-Bold.woff" fontSize={window.screen.width<768px?0.2:0.5} letterSpacing={-0.06} {...props}>
+    <Text font="/Inter-Bold.woff" fontSize={`${window.screen.width<768?0.2:0.5}`}  letterSpacing={-0.06} {...props}>
       CONNECT THE EMOTIÓN
       <meshBasicMaterial toneMapped={false}>
         <videoTexture attach="map" args={[video]} encoding={THREE.sRGBEncoding} />
